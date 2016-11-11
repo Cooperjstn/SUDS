@@ -48,7 +48,23 @@ public class SudsRestController {
         h2.stop();
     }
 
-//    user log in / create new user route
+
+//    Login route;
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public ResponseEntity<User> login(HttpSession session, @RequestBody User user) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+        User userFromH2 = users.findFirstByName(user.getName());
+        if (userFromH2 == null) {
+            return new ResponseEntity<User>(HttpStatus.FORBIDDEN);
+        }
+        else if(!PasswordStorage.verifyPassword(user.getPassword(), userFromH2.getPassword())){
+            return new ResponseEntity<User>(HttpStatus.FORBIDDEN);
+        }
+
+        session.setAttribute("name", user.getName());
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
+//    Route to create a new user
     @RequestMapping(path = "/user", method = RequestMethod.POST)
     public ResponseEntity<User> addUser(HttpSession session, @RequestBody User user) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException {
         User userFromH2 = users.findFirstByName(user.getName());
