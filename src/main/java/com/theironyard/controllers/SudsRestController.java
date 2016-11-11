@@ -1,5 +1,6 @@
 package com.theironyard.controllers;
 
+import com.theironyard.entities.Beer;
 import com.theironyard.entities.User;
 import com.theironyard.services.BeerRepository;
 import com.theironyard.services.UserRepository;
@@ -17,6 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by stevenburris on 11/10/16.
@@ -64,6 +66,12 @@ public class SudsRestController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
+    @RequestMapping(path = "/logout", method = RequestMethod.POST)
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "You're logged out";
+    }
+
 //    Route to create a new user
     @RequestMapping(path = "/user", method = RequestMethod.POST)
     public ResponseEntity<User> addUser(HttpSession session, @RequestBody User user) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException {
@@ -85,6 +93,32 @@ public class SudsRestController {
     public User getUser(HttpSession session) {
         String name = (String) session.getAttribute("name");
         return users.findFirstByName(name);
+    }
+
+//    Route to return all of the beers
+    @RequestMapping(path = "/suds", method = RequestMethod.GET)
+    public ArrayList<Beer> getBeers() {
+        ArrayList<Beer> theBeers = (ArrayList<Beer>) beers.findAll();
+        return theBeers;
+    }
+
+//    Route to add a new beer
+    @RequestMapping(path = "/input", method = RequestMethod.POST)
+    public ResponseEntity<Beer> addBeer(HttpSession session, @RequestBody Beer beer) {
+        String name = (String) session.getAttribute("name");
+        if (name == null) {
+            return new ResponseEntity<Beer>(HttpStatus.I_AM_A_TEAPOT);
+        }
+
+        beer.setUser(users.findFirstByName(name));
+        return new ResponseEntity<Beer>(beers.save(beer), HttpStatus.OK);
+    }
+
+//    Route to return a single beer
+    @RequestMapping(path = "/singleview", method = RequestMethod.GET)
+    public ResponseEntity<Beer> getABeer(@RequestBody Beer beer, Integer id) {
+        beer = beers.findOne(id);
+        return new ResponseEntity<Beer>(beer, HttpStatus.OK);
     }
 
 
