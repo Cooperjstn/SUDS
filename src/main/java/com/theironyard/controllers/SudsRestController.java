@@ -64,5 +64,11 @@ public class SudsRestController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
+    @RequestMapping(path = "/user", method = RequestMethod.GET)
+    public User getUser(HttpSession session) {
+        String name = (String) session.getAttribute("name");
+        return users.findFirstByName(name);
+    }
+
 
 }
