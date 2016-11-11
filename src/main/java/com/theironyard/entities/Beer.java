@@ -13,7 +13,14 @@ public class Beer {
         PILSNER,
         LAGER,
         PALE_ALE,
-        BROWN_ALE
+        BROWN_ALE,
+        INDIAN_PALE_ALE,
+        PORTER,
+        STOUT,
+        BELGIAN,
+        WHEAT,
+        LAMBIC,
+        SOUR
     }
 
     @Id
