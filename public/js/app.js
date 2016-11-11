@@ -1,1 +1,1 @@
-console.error("SyntaxError: /Users/CodingEngineering/TIY/Assignments/SUDS/src-client/scripts/app.js: Unexpected token, expected , (9:4) while parsing file: /Users/CodingEngineering/TIY/Assignments/SUDS/src-client/scripts/app.js");
+console.error("SyntaxError: /Users/paulswift/TIY/assignments/SUDS/src-client/scripts/app.js: Unexpected token, expected , (12:4) while parsing file: /Users/paulswift/TIY/assignments/SUDS/src-client/scripts/app.js");

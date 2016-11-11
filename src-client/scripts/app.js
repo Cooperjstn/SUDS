@@ -5,10 +5,11 @@ const Backbone = require('backbone');
 
 const AppRouter = Backbone.Router.extend ({
   routes: {
-    "singleview" : "renderSingleView"
-    "input" : "rendeSUDSInput",
-    "suds"  : "renderMultiSUDSView",
-    "login" : 'renderAuthView'
+    "/singleview" : "renderSingleView",
+    "/input" : "renderSUDSInput",
+    "/suds"  : "renderMultiSUDSView",
+    "/user" : "renderCreateUserView"
+    "/login" : 'renderAuthView'
   },
 
 renderSingleView: function(){
