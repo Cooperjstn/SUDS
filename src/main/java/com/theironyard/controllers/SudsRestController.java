@@ -80,7 +80,7 @@ public class SudsRestController {
         session.setAttribute("name", user.getName());
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
-
+//      Route to return current user object
     @RequestMapping(path = "/user", method = RequestMethod.GET)
     public User getUser(HttpSession session) {
         String name = (String) session.getAttribute("name");
