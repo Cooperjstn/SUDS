@@ -54,10 +54,10 @@ public class SudsRestController {
     public ResponseEntity<User> login(HttpSession session, @RequestBody User user) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
         User userFromH2 = users.findFirstByName(user.getName());
         if (userFromH2 == null) {
-            return new ResponseEntity<User>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<User>(HttpStatus.I_AM_A_TEAPOT);
         }
         else if(!PasswordStorage.verifyPassword(user.getPassword(), userFromH2.getPassword())){
-            return new ResponseEntity<User>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<User>(HttpStatus.I_AM_A_TEAPOT);
         }
 
         session.setAttribute("name", user.getName());
@@ -70,16 +70,17 @@ public class SudsRestController {
         User userFromH2 = users.findFirstByName(user.getName());
         if (userFromH2 == null) {
             user.setPassword(PasswordStorage.createHash(user.getPassword()));
+            user.setName(user.getName());
             users.save(user);
         }
-        else if(!PasswordStorage.verifyPassword(user.getPassword(), userFromH2.getPassword())){
-            return new ResponseEntity<User>(HttpStatus.FORBIDDEN);
+        else {
+            return new ResponseEntity<User>(HttpStatus.I_AM_A_TEAPOT);
         }
 
         session.setAttribute("name", user.getName());
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
-
+//      Route to return current user object
     @RequestMapping(path = "/user", method = RequestMethod.GET)
     public User getUser(HttpSession session) {
         String name = (String) session.getAttribute("name");
