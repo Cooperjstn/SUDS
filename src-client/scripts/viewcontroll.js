@@ -2,7 +2,7 @@ const React = require('react')
 const STORE = require('./store.js')
 const ACTIONS = require('./actions.js')
 
-const MultiSudsView = require('./multi-suds-view.js')
+// const MultiSudsView = require('./multi-suds-view.js')
 const LoginView = require('./login-view.js')
 const NewSudsRview = require('./new-review.js')
 
@@ -19,12 +19,12 @@ const AppViewController = React.createClass({
         let updateState = STORE.getStoreData()
         self.setState(updateState)
     })
-}
+},
 
   render: function(){
     switch(this.props.routedFrom){
       case "LoginView":
-         return </LoginView/>
+         return <LoginView/>
          break;
 
       // case "NewSudsView":
@@ -38,7 +38,7 @@ const AppViewController = React.createClass({
 
       case "MultiSudsView":
          console.log("rendering dashboard(multiview)")
-         return <MultiSudsView />
+         return <MultiSudsView/>
          break;
 
       default:

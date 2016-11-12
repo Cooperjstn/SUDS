@@ -3,7 +3,7 @@ const React = require('react')
 const Backbone = require('backbone');
 
 const AppViewController = require('./viewcontroll.js')
-
+const STORE = require ('./store.js')
 
 
 const AppRouter = Backbone.Router.extend ({
