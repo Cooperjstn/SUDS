@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -69,7 +70,10 @@ public class SudsRestController {
 
 //    Login route;
     @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public ResponseEntity<User> login(HttpSession session, @RequestBody User user) throws PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+    public ResponseEntity<User> login(HttpSession session,
+                                      @RequestBody User user) throws PasswordStorage.InvalidHashException,
+            PasswordStorage.CannotPerformOperationException {
+
         User userFromH2 = users.findFirstByName(user.getName());
         if (userFromH2 == null) {
             return new ResponseEntity<User>(HttpStatus.I_AM_A_TEAPOT);
@@ -120,25 +124,23 @@ public class SudsRestController {
 
 //    This route is to add a beer
     @RequestMapping(path = "/input", method = RequestMethod.POST)
-    public ResponseEntity<Beer> addBeer(HttpSession session, @RequestBody Beer beer, MultipartFile filename) throws IOException {
-        String name = (String) session.getAttribute("name");
-        if (name == null) {
-            return new ResponseEntity<Beer>(HttpStatus.I_AM_A_TEAPOT);
+    public void addBeer(HttpServletResponse response, HttpSession session, String name, String brewery, String description,
+                        Integer rating, Beer.Category category, MultipartFile image) throws Exception {
+        String username = (String) session.getAttribute("name");
+        if (username == null) {
+            throw new Exception("Nope.");
         }
-
-        beer.setUser(users.findFirstByName(name));
 
         File dir = new File("public");
 
-
-        File photoFile = File.createTempFile("filename", filename.getOriginalFilename(), dir);
+        File photoFile = File.createTempFile("image", image.getOriginalFilename(), dir);
         FileOutputStream fos = new FileOutputStream(photoFile);
-        fos.write(filename.getBytes());
+        fos.write(image.getBytes());
 
-        beer.setFilename(photoFile.getName());
+        Beer beer = new Beer(name, photoFile.getName(), brewery, description, rating, category, users.findFirstByName(username));
+        beers.save(beer);
 
-
-        return new ResponseEntity<Beer>(beers.save(beer), HttpStatus.OK);
+        response.sendRedirect("/");
     }
 
     @RequestMapping(path = "/delete", method = RequestMethod.POST)
@@ -150,7 +152,7 @@ public class SudsRestController {
 
         int id = beer.getId();
         beers.delete(id);
-        return new ResponseEntity<Beer>(beers.findAll().iterator().next(), HttpStatus.OK);
+        return new ResponseEntity<Beer>(HttpStatus.OK);
     }
 
 //    Route to return a single beer
