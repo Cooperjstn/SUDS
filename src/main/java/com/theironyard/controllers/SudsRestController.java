@@ -38,11 +38,23 @@ public class SudsRestController {
 //        start web server
         h2 = Server.createWebServer().start();
 
-//        add a default user
+//        add a default user: Admin     password: hunter2
         User defaultUser = new User("Admin", PasswordStorage.createHash("hunter2"));
         if (users.findFirstByName(defaultUser.name) == null) {
             users.save(defaultUser);
         }
+//        add second default user:  Admin2       password:  hunter2
+        User defaultUser2 = new User("Admin2", PasswordStorage.createHash("hunter2"));
+        if (users.findFirstByName(defaultUser2.name) == null) {
+            users.save(defaultUser2);
+        }
+//        add third default user:  Admin3       password:  hunter2
+        User defaultUser3 = new User("Admin3", PasswordStorage.createHash("hunter2"));
+        if (users.findFirstByName(defaultUser3.name) == null) {
+            users.save(defaultUser3);
+        }
+
+
     }
 
     @PreDestroy
@@ -115,11 +127,13 @@ public class SudsRestController {
     }
 
 //    Route to return a single beer
-    @RequestMapping(path = "/singleview", method = RequestMethod.GET)
-    public ResponseEntity<Beer> getABeer(@RequestBody Beer beer, Integer id) {
-        beer = beers.findOne(id);
-        return new ResponseEntity<Beer>(beer, HttpStatus.OK);
-    }
+//    @RequestMapping(path = "/singleview", method = RequestMethod.GET)
+//    public ResponseEntity<Beer> getABeer(@RequestBody Beer beer) {
+//        int id = beer.getId();
+//        Beer editBeer = beers.findOne(id);
+//
+//        return new ResponseEntity<Beer>(beer, HttpStatus.OK);
+//    }
 
 
 }
