@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -116,14 +120,37 @@ public class SudsRestController {
 
 //    This route is to add a beer
     @RequestMapping(path = "/input", method = RequestMethod.POST)
-    public ResponseEntity<Beer> addBeer(HttpSession session, @RequestBody Beer beer) {
+    public ResponseEntity<Beer> addBeer(HttpSession session, @RequestBody Beer beer, MultipartFile filename) throws IOException {
         String name = (String) session.getAttribute("name");
         if (name == null) {
             return new ResponseEntity<Beer>(HttpStatus.I_AM_A_TEAPOT);
         }
 
         beer.setUser(users.findFirstByName(name));
+
+        File dir = new File("public");
+
+
+        File photoFile = File.createTempFile("filename", filename.getOriginalFilename(), dir);
+        FileOutputStream fos = new FileOutputStream(photoFile);
+        fos.write(filename.getBytes());
+
+        beer.setFilename(photoFile.getName());
+
+
         return new ResponseEntity<Beer>(beers.save(beer), HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/delete", method = RequestMethod.POST)
+    public ResponseEntity<Beer> deleteBeer(HttpSession session, @RequestBody Beer beer) {
+        String name = (String) session.getAttribute("name");
+        if (name == null) {
+            return new ResponseEntity<Beer>(HttpStatus.I_AM_A_TEAPOT);
+        }
+
+        int id = beer.getId();
+        beers.delete(id);
+        return new ResponseEntity<Beer>(beers.findAll().iterator().next(), HttpStatus.OK);
     }
 
 //    Route to return a single beer
