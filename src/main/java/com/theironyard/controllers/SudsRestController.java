@@ -114,7 +114,7 @@ public class SudsRestController {
         return theBeers;
     }
 
-//    Route to add a new beer
+//    This route is to add a beer
     @RequestMapping(path = "/input", method = RequestMethod.POST)
     public ResponseEntity<Beer> addBeer(HttpSession session, @RequestBody Beer beer) {
         String name = (String) session.getAttribute("name");
