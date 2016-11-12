@@ -2,6 +2,9 @@ const ReactDOM = require('react-dom');
 const React = require('react')
 const Backbone = require('backbone');
 
+const AppViewController = require('./viewcontroll.js')
+
+
 
 const AppRouter = Backbone.Router.extend ({
   routes: {
