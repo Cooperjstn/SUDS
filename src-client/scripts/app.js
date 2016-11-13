@@ -23,10 +23,10 @@ renderSingleView: function(){
 //   ReactDOM.render(<AppViewController routedFrom="SUDSInput"/>, document.querySelector('app-container'))
 // },
 
-renderMultiSudsView: function (){
-  console.log('multiview');
-  ReactDOM.render(<AppViewController routedFrom="MultiSudsView"/>, document.querySelector('#app-container'))
-},
+// renderMultiSudsView: function (){
+//   console.log('multiview');
+//   ReactDOM.render(<AppViewController routedFrom="MultiSudsView"/>, document.querySelector('#app-container'))
+// },
 
 renderCreateUserView: function (){
   ReactDOM.render(<AppViewController routedFrom="CreateUserView"/>, document.querySelector('#app-container'))
