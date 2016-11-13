@@ -48,18 +48,39 @@ public class SudsRestController {
         if (users.findFirstByName(defaultUser.name) == null) {
             users.save(defaultUser);
         }
+        else {
+            defaultUser = users.findFirstByName(defaultUser.name);
+        }
 //        add second default user:  Admin2       password:  hunter2
         User defaultUser2 = new User("Admin2", PasswordStorage.createHash("hunter2"));
         if (users.findFirstByName(defaultUser2.name) == null) {
             users.save(defaultUser2);
+        }
+        else {
+            defaultUser2 = users.findFirstByName(defaultUser2.name);
         }
 //        add third default user:  Admin3       password:  hunter2
         User defaultUser3 = new User("Admin3", PasswordStorage.createHash("hunter2"));
         if (users.findFirstByName(defaultUser3.name) == null) {
             users.save(defaultUser3);
         }
+        else {
+            defaultUser3 = users.findFirstByName(defaultUser3.name);
+        }
 
+//        adding seed data for beer list;
 
+        if (beers.count() == 0) {
+            Beer beer = new Beer("Coors", "images/Coors.png", "Coors Brewing Company", "The Original Banquet Beer", 4,
+                    Beer.Category.LAGER, defaultUser);
+            Beer beer1 = new Beer("Fat Tire", "images/Fat-Tire.jpg", "New Belgium Brewing", "Delicious & Nutritious", 5,
+                    Beer.Category.BROWN_ALE, defaultUser2);
+            Beer beer2 = new Beer("Julius", "images/Julius.jpg", "Tree House Brewing Company", "Not for me, but others seem to like it.",
+                    3, Beer.Category.INDIAN_PALE_ALE, defaultUser3);
+            beers.save(beer);
+            beers.save(beer1);
+            beers.save(beer2);
+        }
     }
 
     @PreDestroy
@@ -131,14 +152,7 @@ public class SudsRestController {
             throw new Exception("Nope.");
         }
 
-        File dir = new File("public");
-
-        File photoFile = File.createTempFile("image", image.getOriginalFilename(), dir);
-        FileOutputStream fos = new FileOutputStream(photoFile);
-        fos.write(image.getBytes());
-
-        Beer beer = new Beer(name, photoFile.getName(), brewery, description, rating, category, users.findFirstByName(username));
-        beers.save(beer);
+        createBeer(name, brewery, description, rating, category, image, username);
 
         response.sendRedirect("/");
     }
@@ -163,6 +177,20 @@ public class SudsRestController {
 //
 //        return new ResponseEntity<Beer>(beer, HttpStatus.OK);
 //    }
+
+//    refactored method to create beer;
+
+    public void createBeer(String name, String brewery, String description,
+                           Integer rating, Beer.Category category, MultipartFile image, String username) throws IOException {
+        File dir = new File("public/images");
+
+        File photoFile = File.createTempFile("image", image.getOriginalFilename(), dir);
+        FileOutputStream fos = new FileOutputStream(photoFile);
+        fos.write(image.getBytes());
+
+        Beer beer = new Beer(name, photoFile.getName(), brewery, description, rating, category, users.findFirstByName(username));
+        beers.save(beer);
+    }
 
 
 }
