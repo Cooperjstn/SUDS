@@ -33,7 +33,7 @@ const AppViewController = React.createClass({
 
       case "MultiSudsView":
          console.log("rendering dashboard(multiview)")
-         return <MultiSudsView/>
+         return <MultiSudsView sudsList = {this.state.currentSuds}/>
          break;
 
       default:
