@@ -115,7 +115,8 @@ public class SudsRestController {
 
 //    Route to create a new user
     @RequestMapping(path = "/user", method = RequestMethod.POST)
-    public ResponseEntity<User> addUser(HttpSession session, @RequestBody User user) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException {
+    public ResponseEntity<User> addUser(HttpSession session,
+                                        @RequestBody User user) throws PasswordStorage.CannotPerformOperationException, PasswordStorage.InvalidHashException {
         User userFromH2 = users.findFirstByName(user.getName());
         if (userFromH2 == null) {
             user.setPassword(PasswordStorage.createHash(user.getPassword()));
