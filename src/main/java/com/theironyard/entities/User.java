@@ -1,5 +1,8 @@
 package com.theironyard.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 /**
@@ -16,6 +19,7 @@ public class User {
     @Column(nullable = false, unique = true)
     public
     String name;
+
 
     @Column(nullable = false)
     String password;

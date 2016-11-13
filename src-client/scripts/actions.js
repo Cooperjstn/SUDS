@@ -12,7 +12,7 @@ const ACTIONS = {
 
 
     userMod.save().then(function(serverRes){
-      console.log(serverRes)
+      console.log(serverRes)  
       location.hash = ""
     })
   },
