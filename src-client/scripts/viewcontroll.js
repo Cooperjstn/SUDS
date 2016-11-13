@@ -6,6 +6,7 @@ const AuthView = require ('./login-view.js')
 // const MultiSudsView = require('./multi-suds-view.js')
 const LoginView = require('./login-view.js')
 const NewSudsRview = require('./new-review.js')
+const MultiSudsView = require ('./multi-view.js')
 
 const AppViewController = React.createClass({
   getInitialState: function(){
@@ -37,10 +38,10 @@ const AppViewController = React.createClass({
       //    break;
       //
       //
-      // case "MultiSudsView":
-      //    console.log("rendering dashboard(multiview)")
-      //    return <MultiSudsView/>
-      //    break;
+      case "MultiSudsView":
+         console.log("rendering dashboard(multiview)")
+         return <MultiSudsView/>
+         break;
 
       default:
          return <div><h1>Yolo!!</h1></div>
