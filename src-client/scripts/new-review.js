@@ -1,20 +1,35 @@
-const ReactDOM = require('react-dom');
 const React = require('react');
-const Backbone = require('backbone');
 
 
-const showNewReviewInput = React.createClass ({
-  getInitalState: function (){
-    return {}
-  },
+const NewSudsRview = React.createClass ({
+   render : function (){
+     return (
+      <div>
+         <div className="input-group">
+            <input type="text" className="form-control" placeholder="Beer Name" aria-describedby="basic-addon1"/>
+         </div>
+         <div className="input-group">
+            <input type="text" className="form-control" placeholder="Beer Category" aria-describedby="basic-addon1"/>
+         </div>
+         <div className="input-group">
+            <input type="text" className="form-control" placeholder="Description" aria-describedby="basic-addon1"/>
+         </div>
+         <div className="input-group">
+            <input type="text" className="form-control" placeholder="Brewery" aria-describedby="basic-addon1"/>
+         </div>
+         <div className="input-group">
+            <input type="text" className="form-control" placeholder="Rating" aria-describedby="basic-addon1"/>
+         </div>
+         <div className="input-group">
+            <input type="text" className="form-control" placeholder="Img" aria-describedby="basic-addon1"/>
+         </div>
 
-render : function (){
-  return (
-   <div>
-      <h2>Pour some new SUDS</h2>
-    </div>
-  )
-}
+         <div className="btn-group" role="group" aria-label="...">
+            <button type="button" className="btn btn-default">Submit</button>
+         </div>
+      </div>
+     )
+   }
 })
 
-module.exports = showNewReviewInput
+module.exports = NewSudsRview

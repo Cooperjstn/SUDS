@@ -1,6 +1,6 @@
 const Backbone = require('backbone');
-// const UserModel  = require('./model-user.js')
-// const {TodoModel, TodoCollection}  = require('./model-user.js')
+const UserModel  = require('./model-user.js')
+const {SudsModel, SudsCollection}  = require('./model-user.js')
 
 
 const ACTIONS = {

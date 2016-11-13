@@ -1,6 +1,8 @@
 const ReactDOM = require('react-dom');
 const React = require('react')
 const Backbone = require('backbone');
+const UserModel  = require('./model-user.js')
+
 
 const AppViewController = require('./viewcontroll.js')
 const STORE = require ('./store.js')
@@ -9,19 +11,20 @@ const STORE = require ('./store.js')
 const AppRouter = Backbone.Router.extend ({
   routes: {
    //  "/singleview" : "renderSingleView",
-   //  "/input" : "renderSUDSInput",
+    "input" : "renderSUDSInput",
    //  "/suds"  : "renderMultiSUDSView",
    //  "/user" : "renderCreateUserView",
-    "login" : 'renderAuthView'
+    "" : 'renderAuthView'
   },
 
 // renderSingleView: function(){
 //   ReactDOM.render(<AppViewController routedFrom="SingleView"/>, document.querySelector('app-container'))
 // },
 //
-// renderSUDSinput: function(){
-//   ReactDOM.render(<AppViewController routedFrom="SUDSInput"/>, document.querySelector('app-container'))
-// },
+renderSUDSInput: function(){
+   console.log('input page');
+  ReactDOM.render(<AppViewController routedFrom="NewSudsRview"/>, document.querySelector('#app-container'))
+},
 //
 // renderMultiSUDSView: function (){
 //   ReactDOM.render(<AppViewController routedFrom="MultiSUDSView"/>, document.querySelector('app-container'))
