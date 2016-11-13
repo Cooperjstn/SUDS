@@ -1,7 +1,7 @@
 const Backbone = require('backbone');
 const UserModel  = require('./model-user.js')
-const {SudsModel, SudsCollection}  = require('./model-user.js')
-
+const {SudsModel, SudsCollection}  = require('./model-suds.js')
+const STORE = require('./store.js')
 
 const ACTIONS = {
   authenticateUser: function(userDataObj){
