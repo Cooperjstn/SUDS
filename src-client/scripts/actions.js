@@ -19,7 +19,7 @@ const ACTIONS = {
 
   fetchSudsCollection: function(queryObj){
      const sudsColl = new SudsCollection()
-     .fetch().then(function(){
+     sudsColl.fetch().then(function(){
         STORE.setStore('currentSuds', sudsColl.models )
      })
 
@@ -29,7 +29,7 @@ const ACTIONS = {
      const sudsMod = new SudsModel()
      sudsMod.set(newSudsData)
      return sudsMod.save().then(function(){
-        window.location.hash = "suds"
+        window.location.hash = "login"
      })
   },
 
