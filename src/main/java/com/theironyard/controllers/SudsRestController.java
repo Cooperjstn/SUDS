@@ -150,7 +150,7 @@ public class SudsRestController {
     public ResponseEntity<Beer> addBeer(HttpSession session, @RequestBody Beer beer) throws Exception {
         String username = (String) session.getAttribute("name");
         if (username == null) {
-            return new ResponseEntity<Beer>(HttpStatus.I_AM_A_TEAPOT);
+            return new ResponseEntity<Beer>(HttpStatus.FORBIDDEN);
         }
 
         beer.setUser(users.findFirstByName(username));
