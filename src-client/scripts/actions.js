@@ -28,10 +28,13 @@ const ACTIONS = {
   createNewSuds: function(newSudsData){
      const sudsMod = new SudsModel()
      sudsMod.set(newSudsData)
+     sudsMod.url = '/input'
      return sudsMod.save().then(function(){
         window.location.hash = "login"
      })
   },
+
+
 
 
 }
