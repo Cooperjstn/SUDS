@@ -19,9 +19,9 @@ renderSingleView: function(){
   ReactDOM.render(<AppViewController routedFrom="SingleView"/>, document.querySelector('#app-container'))
 },
 //
-// renderSUDSinput: function(){
-//   ReactDOM.render(<AppViewController routedFrom="SUDSInput"/>, document.querySelector('app-container'))
-// },
+renderSUDSInput: function (){
+ ReactDOM.render(<AppViewController routedFrom="NewSudsRview"/>, document.querySelector('#app-container'))
+},
 
 renderMultiSudsView: function (){
   console.log('multiview');
