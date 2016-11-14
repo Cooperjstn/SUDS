@@ -11,7 +11,7 @@ const AppRouter = Backbone.Router.extend ({
     "input" : "renderSUDSInput",
     "suds"  : "renderMultiSudsView",
     "user" : "renderCreateUserView",
-    "login" : 'renderAuthView'
+    "" : 'renderAuthView'
   },
 
 renderSingleView: function(){
