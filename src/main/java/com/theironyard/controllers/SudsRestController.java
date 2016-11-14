@@ -71,11 +71,13 @@ public class SudsRestController {
 //        adding seed data for beer list;
 
         if (beers.count() == 0) {
-            Beer beer = new Beer("Coors", "images/Coors.png", "Coors Brewing Company", "The Original Banquet Beer", 4,
+            Beer beer = new Beer("Coors", "http://www.bruguru.com/coorsbanquet.png", "Coors Brewing Company", "The Original Banquet Beer", 4,
                     Beer.Category.LAGER, defaultUser);
-            Beer beer1 = new Beer("Fat Tire", "images/Fat-Tire.jpg", "New Belgium Brewing", "Delicious & Nutritious", 5,
+            Beer beer1 = new Beer("Fat Tire", "https://cdn.shopify.com/s/files/1/0227/0581/products/New_Belgium_Fat_Tire_Amber_Ale_12OZ_CAN.jpg?v=1413909890",
+                    "New Belgium Brewing", "Delicious & Nutritious", 5,
                     Beer.Category.BROWN_ALE, defaultUser2);
-            Beer beer2 = new Beer("Julius", "images/Julius.jpg", "Tree House Brewing Company", "Not for me, but others seem to like it.",
+            Beer beer2 = new Beer("Julius", "http://draftmag.com/wp-content/uploads/2016/01/3-Tree-House.jpg",
+                    "Tree House Brewing Company", "Not for me, but others seem to like it.",
                     3, Beer.Category.INDIAN_PALE_ALE, defaultUser3);
             beers.save(beer);
             beers.save(beer1);
@@ -146,16 +148,16 @@ public class SudsRestController {
 
 //    This route is to add a beer
     @RequestMapping(path = "/input", method = RequestMethod.POST)
-    public void addBeer(HttpServletResponse response, HttpSession session, String name, String brewery, String description,
-                        Integer rating, Beer.Category category, MultipartFile image) throws Exception {
+    public ResponseEntity<Beer> addBeer(HttpSession session, @RequestBody Beer beer) throws Exception {
         String username = (String) session.getAttribute("name");
         if (username == null) {
-            throw new Exception("Nope.");
+            return new ResponseEntity<Beer>(HttpStatus.I_AM_A_TEAPOT);
         }
 
-        createBeer(name, brewery, description, rating, category, image, username);
+        beer.setUser(users.findFirstByName(username));
+        beers.save(beer);
 
-        response.sendRedirect("/");
+        return new ResponseEntity<Beer>(beer, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/delete", method = RequestMethod.POST)
@@ -182,14 +184,14 @@ public class SudsRestController {
 //    refactored method to create beer;
 
     public void createBeer(String name, String brewery, String description,
-                           Integer rating, Beer.Category category, MultipartFile image, String username) throws IOException {
-        File dir = new File("public/images");
+                           Integer rating, Beer.Category category, String image, String username) throws IOException {
+//        File dir = new File("public/images");
 
-        File photoFile = File.createTempFile("image", image.getOriginalFilename(), dir);
-        FileOutputStream fos = new FileOutputStream(photoFile);
-        fos.write(image.getBytes());
+//        File photoFile = File.createTempFile("image", image.getOriginalFilename(), dir);
+//        FileOutputStream fos = new FileOutputStream(photoFile);
+//        fos.write(image.getBytes());
 
-        Beer beer = new Beer(name, photoFile.getName(), brewery, description, rating, category, users.findFirstByName(username));
+        Beer beer = new Beer(name, image, brewery, description, rating, category, users.findFirstByName(username));
         beers.save(beer);
     }
 

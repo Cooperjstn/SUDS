@@ -8,7 +8,6 @@ const STORE = require ('./store.js')
 
 const AppRouter = Backbone.Router.extend ({
   routes: {
-    // "/singleview" : "renderSingleView",
     "input" : "renderSUDSInput",
     "suds"  : "renderMultiSudsView",
     "user" : "renderCreateUserView",
