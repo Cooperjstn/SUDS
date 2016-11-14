@@ -31,7 +31,7 @@ public class Beer {
     String name;
 
     @Column(nullable = false)
-    String filename;
+    String image;
 
     @Column(nullable = false)
     String brewery;
@@ -51,9 +51,9 @@ public class Beer {
     public Beer() {
     }
 
-    public Beer(String name, String filename, String brewery, String description, int rating, Category category, User user) {
+    public Beer(String name, String image, String brewery, String description, int rating, Category category, User user) {
         this.name = name;
-        this.filename = filename;
+        this.image = image;
         this.brewery = brewery;
         this.description = description;
         this.rating = rating;
@@ -77,12 +77,12 @@ public class Beer {
         this.name = name;
     }
 
-    public String getFilename() {
-        return filename;
+    public String getImage() {
+        return image;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getBrewery() {

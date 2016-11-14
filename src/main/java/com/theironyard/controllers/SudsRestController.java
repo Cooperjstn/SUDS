@@ -148,16 +148,16 @@ public class SudsRestController {
 
 //    This route is to add a beer
     @RequestMapping(path = "/input", method = RequestMethod.POST)
-    public void addBeer(HttpServletResponse response, HttpSession session, String name, String brewery, String description,
-                        Integer rating, Beer.Category category, String image) throws Exception {
+    public ResponseEntity<Beer> addBeer(HttpSession session, @RequestBody Beer beer) throws Exception {
         String username = (String) session.getAttribute("name");
         if (username == null) {
-            throw new Exception("Nope.");
+            return new ResponseEntity<Beer>(HttpStatus.I_AM_A_TEAPOT);
         }
 
-        createBeer(name, brewery, description, rating, category, image, username);
+        beer.setUser(users.findFirstByName(username));
+        beers.save(beer);
 
-        response.sendRedirect("/");
+        return new ResponseEntity<Beer>(beer, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/delete", method = RequestMethod.POST)
