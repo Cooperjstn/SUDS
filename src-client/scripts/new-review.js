@@ -6,7 +6,7 @@ const NewSudsRview = React.createClass ({
    _handleNewBrew: function(evt){
      let SudsItemObj = {
         name: this.refs.name.value,
-        filename: this.refs.img.value,
+        image: this.refs.img.value,
         brewery: this.refs.brewery.value,
         description: this.refs.des.value,
         rating: parseInt(this.refs.rating.value,10),
@@ -41,9 +41,10 @@ const NewSudsRview = React.createClass ({
          <div className="input-group">
             <input type="text" ref="img" className="form-control" placeholder="Img" aria-describedby="basic-addon1"/>
          </div>
-
          <div className="btn-group" role="group" aria-label="...">
-            <button type="button" className="btn btn-default" onClick= {this._handleNewBrew}>Submit</button>
+          <a href = "#suds" onClick={this.handleClick}>
+              <button type="button" className="btn btn-default" onClick= {this._handleNewBrew}>Submit</button>
+            </a>
          </div>
       </div>
      )

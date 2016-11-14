@@ -40,7 +40,7 @@ const MultiSudsView = React.createClass ({
             <a href="#input" onClick={this.handleClick}>
               <button type="button" className="btn btn-default" >Input</button>
               </a>
-              <a href="#login" onClick={this.handleClick}>
+              <a href="" onClick={this.handleClick}>
                 <button type="button" className="btn btn-default" >Logout</button>
                 </a>
               <div className="col-xs-6 col-md-4">
