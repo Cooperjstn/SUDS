@@ -8,7 +8,6 @@ const STORE = require ('./store.js')
 
 const AppRouter = Backbone.Router.extend ({
   routes: {
-    // "/singleview" : "renderSingleView",
     "input" : "renderSUDSInput",
     "suds"  : "renderMultiSudsView",
     "user" : "renderCreateUserView",
@@ -18,7 +17,8 @@ const AppRouter = Backbone.Router.extend ({
 renderSingleView: function(){
   ReactDOM.render(<AppViewController routedFrom="SingleView"/>, document.querySelector('#app-container'))
 },
-//
+
+
 renderSUDSInput: function (){
  ReactDOM.render(<AppViewController routedFrom="NewSudsRview"/>, document.querySelector('#app-container'))
 },

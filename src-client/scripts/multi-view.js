@@ -9,6 +9,7 @@ const MultiSudsView = React.createClass ({
       let beerArray = this.props.sudsList.map(function(model, index){
         return <div>
         <div className = "row">
+>>>>>>> 7bda64768b420a906239969427a5a431d521c151
 
            <div className = "col-sm-6 col-md-3">
               <a className = "thumbnail">
