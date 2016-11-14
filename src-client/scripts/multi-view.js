@@ -8,8 +8,9 @@ const MultiSudsView = React.createClass ({
   render: function(){
       let beerArray = this.props.sudsList.map(function(model, index){
         return <div>
-          <img src= {model.get("filename")}/>
-          <h4> {model.get("name")} </h4>
+
+               <img src= {model.get("filename")}/>
+               <h4> {model.get("name")} </h4>
                 <p> {model.get("brewery")}</p>
                 <p> {model.get("description")}</p>
                 <p> {model.get("rating")}</p>
@@ -22,7 +23,7 @@ const MultiSudsView = React.createClass ({
            <div className="container">
             <div className="left buttons">
             <div className="btn-group" role="group" aria-label="...">
-               <button type="button" className="btn btn-default" >Input</button>
+               <button type="button" className="btn btn-default">Input</button>
                <div className="btn-group" role="group" aria-label="...">
                   <button type="button" className="btn btn-default" >Logout</button>
               <div className="col-xs-6 col-md-4">

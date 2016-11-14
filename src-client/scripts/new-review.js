@@ -9,7 +9,7 @@ const NewSudsRview = React.createClass ({
         filename: this.refs.img.value,
         brewery: this.refs.brewery.value,
         description: this.refs.des.value,
-        rating: this.refs.rating.value,
+        rating: parseInt(this.refs.rating.value,10),
         category: this.refs.cat.value
 
      }
