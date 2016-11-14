@@ -13,7 +13,7 @@ const ACTIONS = {
 
     userMod.save().then(function(serverRes){
       console.log(serverRes)
-      location.hash = ""
+      location.hash = "suds"
     })
   },
 
